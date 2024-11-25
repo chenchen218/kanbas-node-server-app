@@ -1,4 +1,4 @@
-const todos = [
+let todos = [
   { id: 1, title: "Task 1", completed: false },
   { id: 2, title: "Task 2", completed: true },
   { id: 3, title: "Task 3", completed: false },
@@ -40,6 +40,7 @@ export default function WorkingWithArrays(app) {
   app.get("/lab5/todos/:id/delete", (req, res) => {
     const { id } = req.params;
     const todoIndex = todos.findIndex((t) => t.id === parseInt(id));
+
     todos.splice(todoIndex, 1);
     res.json(todos);
   });
