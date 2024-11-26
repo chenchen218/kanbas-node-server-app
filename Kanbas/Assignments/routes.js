@@ -1,30 +1,32 @@
+// Kanbas/Assignments/routes.js
 import * as dao from "./dao.js";
 
-function AssignmentRoutes(app) {
-  app.get("/api/assignments", async (req, res) => {
-    const assignments = await dao.findAllAssignments();
+export default function AssignmentRoutes(app) {
+  app.get("/api/courses/:courseId/assignments", (req, res) => {
+    const { courseId } = req.params;
+    const assignments = dao.findAssignmentsForCourse(courseId);
     res.json(assignments);
   });
 
-  app.get("/api/assignments/:id", async (req, res) => {
-    const assignment = await dao.findAssignmentById(req.params.id);
-    res.json(assignment);
+  app.post("/api/courses/:courseId/assignments", (req, res) => {
+    const { courseId } = req.params;
+    const newAssignment = {
+      ...req.body,
+      course: courseId,
+    };
+    const actualAssignment = dao.createAssignment(newAssignment);
+    res.json(actualAssignment);
   });
 
-  app.post("/api/assignments", async (req, res) => {
-    const newAssignment = await dao.createAssignment(req.body);
-    res.json(newAssignment);
-  });
-
-  app.put("/api/assignments/:id", async (req, res) => {
-    const status = await dao.updateAssignment(req.params.id, req.body);
+  app.delete("/api/assignments/:assignmentId", (req, res) => {
+    const { assignmentId } = req.params;
+    const status = dao.deleteAssignment(assignmentId);
     res.json(status);
   });
 
-  app.delete("/api/assignments/:id", async (req, res) => {
-    const status = await dao.deleteAssignment(req.params.id);
+  app.put("/api/assignments/:assignmentId", (req, res) => {
+    const { assignmentId } = req.params;
+    const status = dao.updateAssignment(assignmentId, req.body);
     res.json(status);
   });
 }
-
-export default AssignmentRoutes;

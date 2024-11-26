@@ -1,19 +1,38 @@
-import db from "../Database/index.js";
+// Kanbas/Assignments/dao.js
+import Database from "../Database/index.js";
 
-export const findAllAssignments = () => db.assignments;
-export const findAssignmentById = (id) =>
-  db.assignments.find((a) => a._id === id);
-export const createAssignment = (assignment) => {
-  const newAssignment = { ...assignment, _id: new Date().getTime().toString() };
-  db.assignments.push(newAssignment);
+export function createAssignment(assignment) {
+  const newAssignment = {
+    ...assignment,
+    _id: new Date().getTime().toString(),
+  };
+  Database.assignments.push(newAssignment);
   return newAssignment;
-};
-export const updateAssignment = (id, assignment) => {
-  const index = db.assignments.findIndex((a) => a._id === id);
-  db.assignments[index] = { ...db.assignments[index], ...assignment };
+}
+
+export function findAssignment(assignmentId) {
+  return Database.assignments.find(
+    (assignment) => assignment._id === assignmentId
+  );
+}
+
+export function findAssignmentsForCourse(courseId) {
+  return Database.assignments.filter(
+    (assignment) => assignment.course === courseId
+  );
+}
+
+export function updateAssignment(assignmentId, assignmentUpdates) {
+  const assignment = Database.assignments.find(
+    (assignment) => assignment._id === assignmentId
+  );
+  Object.assign(assignment, assignmentUpdates);
+  return assignment;
+}
+
+export function deleteAssignment(assignmentId) {
+  Database.assignments = Database.assignments.filter(
+    (assignment) => assignment._id !== assignmentId
+  );
   return { status: "OK" };
-};
-export const deleteAssignment = (id) => {
-  db.assignments = db.assignments.filter((a) => a._id !== id);
-  return { status: "OK" };
-};
+}
