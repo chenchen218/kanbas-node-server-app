@@ -16,7 +16,7 @@ app.use(
     credentials: true,
     origin:
       process.env.NETLIFY_URL ||
-      "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app/#/Kanbas/Account/Profile",
+      "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app",
   })
 );
 const sessionOptions = {
