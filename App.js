@@ -14,7 +14,9 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: process.env.NETLIFY_URL || "http://localhost:3000",
+    origin:
+      process.env.NETLIFY_URL ||
+      "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app",
   })
 );
 const sessionOptions = {
