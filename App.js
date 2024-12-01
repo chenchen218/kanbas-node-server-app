@@ -11,12 +11,16 @@ import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
 
 const app = express();
+// Allow both local development and Netlify URLs
 app.use(
   cors({
     credentials: true,
-    origin:
-      process.env.NETLIFY_URL ||
+    origin: [
+      "http://localhost:3000", // Local development
+      process.env.NETLIFY_URL,
       "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 const sessionOptions = {
