@@ -8,6 +8,7 @@ export default function UserRoutes(app) {
     res.json(user);
   };
 
+  //older createUser(not including section)
   // const createUser = async (req, res) => {
   //   const { username, password, email, role } = req.body;
   //   const user = await dao.findUserByUsername(username);
