@@ -8,18 +8,6 @@ export default function UserRoutes(app) {
     res.json(user);
   };
 
-  //older createUser(not including section)
-  // const createUser = async (req, res) => {
-  //   const { username, password, email, role } = req.body;
-  //   const user = await dao.findUserByUsername(username);
-  //   if (user) {
-  //     res.status(400).json({ message: "Username already in use" });
-  //     return;
-  //   }
-  //   const newUser = await dao.createUser({ username, password, email, role });
-  //   res.json(newUser);
-  // };
-
   const deleteUser = async (req, res) => {
     const status = await dao.deleteUser(req.params.userId);
     res.json(status);
