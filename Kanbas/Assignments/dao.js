@@ -1,38 +1,26 @@
-// Kanbas/Assignments/dao.js
-import Database from "../Database/index.js";
+import model from "./model.js";
+import mongoose from "mongoose";
 
-export function createAssignment(assignment) {
-  const newAssignment = {
-    ...assignment,
-    _id: new Date().getTime().toString(),
-  };
-  Database.assignments.push(newAssignment);
-  return newAssignment;
-}
+export const createAssignment = (assignment) => {
+  return model.create(assignment);
+};
 
-export function findAssignment(assignmentId) {
-  return Database.assignments.find(
-    (assignment) => assignment._id === assignmentId
-  );
-}
+export const findAllAssignments = () => {
+  return model.find();
+};
 
-export function findAssignmentsForCourse(courseId) {
-  return Database.assignments.filter(
-    (assignment) => assignment.course === courseId
-  );
-}
+export const findAssignmentById = (aid) => {
+  return model.findById(aid);
+};
 
-export function updateAssignment(assignmentId, assignmentUpdates) {
-  const assignment = Database.assignments.find(
-    (assignment) => assignment._id === assignmentId
-  );
-  Object.assign(assignment, assignmentUpdates);
-  return assignment;
-}
+export const updateAssignment = (aid, assignment) => {
+  return model.updateOne({ _id: aid }, { $set: assignment });
+};
 
-export function deleteAssignment(assignmentId) {
-  Database.assignments = Database.assignments.filter(
-    (assignment) => assignment._id !== assignmentId
-  );
-  return { status: "OK" };
-}
+export const deleteAssignment = (aid) => {
+  return model.deleteOne({ _id: aid });
+};
+
+export const findAssignmentsForCourse = (courseId) => {
+  return model.find({ course: courseId });
+};
