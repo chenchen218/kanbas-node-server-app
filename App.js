@@ -25,7 +25,7 @@ app.use(
       "http://localhost:3000", // Local development
       process.env.NETLIFY_URL,
       "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app",
-      "https://a5--kanbas-react-web-app-cs5610-chen.netlify.app",
+      "https://a6--kanbas-react-web-app-cs5610-chen.netlify.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
